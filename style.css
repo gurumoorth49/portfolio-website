@@ -5,11 +5,18 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   background-color: #0d0d0d;
   color: #e6e6e6;
   font-family: 'Poppins', 'Segoe UI', sans-serif;
   line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 section {
@@ -73,18 +80,21 @@ nav a:hover {
 
 #home .home-text {
   max-width: 550px;
+  width: 100%;
 }
 
 #home h1 {
   font-size: 42px;
   margin-bottom: 5px;
+  word-wrap: break-word;
 }
 
 #home h1 span {
   color: #f2b705;
   display: block;
-  font-size: 56px;
+  font-size: clamp(32px, 10vw, 56px);
   font-weight: 700;
+  word-wrap: break-word;
 }
 
 #home h3 {
