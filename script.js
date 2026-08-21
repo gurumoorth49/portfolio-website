@@ -82,25 +82,45 @@ scrollTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// ============ CONTACT FORM SUBMIT (front-end only, no backend yet) ============
-const contactForm = document.querySelector(".contact-form");
+// ============ CONTACT FORM SUBMIT (sends via Formspree) ============
+const contactForm = document.querySelector("#contactForm");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", (e) => {
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = contactForm.querySelector('input[type="text"]').value.trim();
-    const email = contactForm.querySelector('input[type="email"]').value.trim();
-    const message = contactForm.querySelector("textarea").value.trim();
+    const name = contactForm.querySelector('input[name="name"]').value.trim();
+    const email = contactForm.querySelector('input[name="email"]').value.trim();
+    const message = contactForm.querySelector('textarea[name="message"]').value.trim();
 
     if (!name || !email || !message) {
       alert("Please fill in all fields before sending.");
       return;
     }
 
-    // No backend connected yet — this just confirms to the user.
-    // Replace this block later with a real fetch() call to your backend/email service.
-    alert(`Thanks, ${name}! Your message has been noted. I'll get back to you at ${email} soon.`);
-    contactForm.reset();
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        alert(`Thanks, ${name}! Your message has been sent. I'll get back to you at ${email} soon.`);
+        contactForm.reset();
+      } else {
+        alert("Something went wrong. Please try again or email me directly.");
+      }
+    } catch (err) {
+      alert("Network error. Please check your connection and try again.");
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
   });
-}
+      }
