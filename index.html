@@ -93,6 +93,14 @@
           </p>
           <button data-link="https://github.com/gurumoorth49/guess-the-number"> Viwe on GitHub </button>
         </div>
+        <div class="project">
+          <h3> Rock Peper Scissors </h3>
+          <p>
+            A Python-based game where you play
+        against the computer.
+          </p>
+          <button data-link="https://github.com/gurumoorth49"> Viwe on GitHub </button>
+        </div>
       </div>
     </section>
     <section id="education">
@@ -107,10 +115,10 @@
     <section id="contact">
       <h2>Contact Me</h2>
       <div class="contact-wrapper">
-        <form class="contact-form">
-          <input type="text" placeholder="Your Name">
-          <input type="email" placeholder="Your Email">
-          <textarea rows="5" placeholder="Your Message"></textarea>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xeajnyoa" method="POST">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea rows="5" name="message" placeholder="Your Message" required></textarea>
           <button type="submit"> Send Message </button>
         </form>
         <div class="contact-info">
