@@ -80,7 +80,6 @@ nav a:hover {
 
 #home .home-text {
   max-width: 550px;
-  width: 100%;
 }
 
 #home h1 {
@@ -166,6 +165,7 @@ nav a:hover {
   height: 300px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top center;
   border: 3px solid #f2b705;
   box-shadow: 0 0 40px rgba(242, 183, 5, 0.35);
 }
@@ -483,4 +483,5 @@ header.scrolled {
   #about {
     flex-direction: column;
   }
-}
+  }
+  
