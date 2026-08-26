@@ -297,8 +297,33 @@ nav a:hover {
 
 .project p {
   color: #a8a8a8;
-  margin-bottom: 18px;
+  margin-bottom: 8px;
   font-size: 14px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.project p.expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #f2b705;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+.read-more-btn:hover {
+  text-decoration: underline;
 }
 
 .project button {
@@ -525,4 +550,3 @@ header.scrolled {
   }
   }
 
-  
