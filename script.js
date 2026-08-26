@@ -85,19 +85,25 @@ scrollTopBtn.addEventListener("click", () => {
 // ============ SCROLL REVEAL: slide in from the side ============
 const revealEls = document.querySelectorAll(".reveal-left, .reveal-right");
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        revealObserver.unobserve(entry.target); // animate once
-      }
-    });
-  },
-  { threshold: 0.2 }
-);
+if (revealEls.length && "IntersectionObserver" in window) {
+  // Only hide elements once we know JS + IntersectionObserver work,
+  // so content never disappears if something goes wrong.
+  revealEls.forEach((el) => el.classList.add("reveal-init"));
 
-revealEls.forEach((el) => revealObserver.observe(el));
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          revealObserver.unobserve(entry.target); // animate once
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealEls.forEach((el) => revealObserver.observe(el));
+}
 
 // ============ CONTACT FORM SUBMIT (sends via Formspree) ============
 const contactForm = document.querySelector("#contactForm");
