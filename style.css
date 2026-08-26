@@ -295,19 +295,28 @@ nav a:hover {
   font-size: 18px;
 }
 
-.project p {
-  color: #a8a8a8;
-  margin-bottom: 8px;
-  font-size: 14px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
+.project h5 {
+  color: #ccc;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
-.project p.expanded {
-  -webkit-line-clamp: unset;
-  overflow: visible;
+.desc-list {
+  color: #a8a8a8;
+  margin-bottom: 4px;
+  font-size: 14px;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.desc-list li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.desc-list li.hidden-item {
+  display: none;
 }
 
 .read-more-btn {
@@ -550,4 +559,4 @@ header.scrolled {
   }
   }
 
-  
+
