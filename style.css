@@ -302,9 +302,48 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
+.project-desc {
+  margin-bottom: 4px;
+}
+
+.desc-preview {
+  color: #a8a8a8;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+.desc-preview.expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.desc-full {
+  display: none;
+}
+
+.desc-full.show {
+  display: block;
+}
+
+.desc-full p {
+  color: #a8a8a8;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.desc-features-heading {
+  color: #f2b705 !important;
+  font-weight: 600;
+  margin-bottom: 6px !important;
+}
+
 .desc-list {
   color: #a8a8a8;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   font-size: 14px;
   padding-left: 18px;
   list-style: disc;
@@ -315,8 +354,8 @@ nav a:hover {
   line-height: 1.5;
 }
 
-.desc-list li.hidden-item {
-  display: none;
+.desc-tech {
+  font-size: 13px;
 }
 
 .read-more-btn {
