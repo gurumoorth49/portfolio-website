@@ -105,6 +105,26 @@ if (revealEls.length && "IntersectionObserver" in window) {
   revealEls.forEach((el) => revealObserver.observe(el));
 }
 
+// ============ PROJECT DESCRIPTIONS: auto "Read more" toggle ============
+document.querySelectorAll(".project p").forEach((desc) => {
+  // Wait a tick so line-clamp has been applied before measuring
+  requestAnimationFrame(() => {
+    if (desc.scrollHeight > desc.clientHeight + 1) {
+      const btn = document.createElement("button");
+      btn.textContent = "Read more";
+      btn.className = "read-more-btn";
+      btn.type = "button";
+
+      btn.addEventListener("click", () => {
+        const expanded = desc.classList.toggle("expanded");
+        btn.textContent = expanded ? "Read less" : "Read more";
+      });
+
+      desc.insertAdjacentElement("afterend", btn);
+    }
+  });
+});
+
 // ============ CONTACT FORM SUBMIT (sends via Formspree) ============
 const contactForm = document.querySelector("#contactForm");
 
@@ -146,4 +166,5 @@ if (contactForm) {
       submitBtn.disabled = false;
     }
   });
-}
+                              }
+                                                
