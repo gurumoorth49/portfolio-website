@@ -134,30 +134,20 @@ try {
   console.error("Scroll reveal setup failed:", err);
 }
 
-// ============ PROJECT DESCRIPTIONS: bullet-point "Read more" toggle ============
+// ============ PROJECT DESCRIPTIONS: "Read more" toggle ============
 try {
-  const VISIBLE_ITEMS = 3;
+  document.querySelectorAll(".project .project-desc").forEach((descWrap) => {
+    const preview = descWrap.querySelector(".desc-preview");
+    const full = descWrap.querySelector(".desc-full");
+    const btn = descWrap.parentElement.querySelector(".read-more-btn");
 
-  document.querySelectorAll(".project .desc-list").forEach((list) => {
-    const items = Array.from(list.querySelectorAll("li"));
-    const btn = list.parentElement.querySelector(".read-more-btn");
+    if (!preview || !full || !btn) return;
 
-    if (items.length <= VISIBLE_ITEMS) {
-      // Nothing to hide, so no need for a toggle button.
-      if (btn) btn.style.display = "none";
-      return;
-    }
-
-    // Hide everything past the first 3 bullet points by default.
-    items.slice(VISIBLE_ITEMS).forEach((li) => li.classList.add("hidden-item"));
-
-    if (btn) {
-      btn.addEventListener("click", () => {
-        const isHidden = items[VISIBLE_ITEMS].classList.contains("hidden-item");
-        items.slice(VISIBLE_ITEMS).forEach((li) => li.classList.toggle("hidden-item", !isHidden));
-        btn.textContent = isHidden ? "Read less" : "Read more";
-      });
-    }
+    btn.addEventListener("click", () => {
+      const expanded = full.classList.toggle("show");
+      preview.classList.toggle("expanded", expanded);
+      btn.textContent = expanded ? "Read less" : "Read more";
+    });
   });
 } catch (err) {
   console.error("Read-more setup failed:", err);
@@ -208,4 +198,4 @@ try {
   }
 } catch (err) {
   console.error("Contact form setup failed:", err);
-}
+                                           }
