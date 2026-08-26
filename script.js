@@ -107,22 +107,35 @@ if (revealEls.length && "IntersectionObserver" in window) {
 
 // ============ PROJECT DESCRIPTIONS: auto "Read more" toggle ============
 document.querySelectorAll(".project p").forEach((desc) => {
-  // Wait a tick so line-clamp has been applied before measuring
-  requestAnimationFrame(() => {
-    if (desc.scrollHeight > desc.clientHeight + 1) {
-      const btn = document.createElement("button");
-      btn.textContent = "Read more";
-      btn.className = "read-more-btn";
-      btn.type = "button";
+  // Temporarily remove the line-clamp to measure the description's
+  // real, untruncated height (scrollHeight is unreliable while
+  // -webkit-line-clamp is active).
+  const originalClamp = desc.style.webkitLineClamp;
+  const originalOverflow = desc.style.overflow;
 
-      btn.addEventListener("click", () => {
-        const expanded = desc.classList.toggle("expanded");
-        btn.textContent = expanded ? "Read less" : "Read more";
-      });
+  desc.style.webkitLineClamp = "unset";
+  desc.style.overflow = "visible";
+  const fullHeight = desc.scrollHeight;
 
-      desc.insertAdjacentElement("afterend", btn);
-    }
-  });
+  desc.style.webkitLineClamp = originalClamp;
+  desc.style.overflow = originalOverflow;
+
+  const lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 20;
+  const clampedHeight = lineHeight * 3; // matches the 3-line clamp in CSS
+
+  if (fullHeight > clampedHeight + 2) {
+    const btn = document.createElement("button");
+    btn.textContent = "Read more";
+    btn.className = "read-more-btn";
+    btn.type = "button";
+
+    btn.addEventListener("click", () => {
+      const expanded = desc.classList.toggle("expanded");
+      btn.textContent = expanded ? "Read less" : "Read more";
+    });
+
+    desc.insertAdjacentElement("afterend", btn);
+  }
 });
 
 // ============ CONTACT FORM SUBMIT (sends via Formspree) ============
@@ -166,5 +179,4 @@ if (contactForm) {
       submitBtn.disabled = false;
     }
   });
-                              }
-                                                
+}
