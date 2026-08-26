@@ -82,6 +82,23 @@ scrollTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+// ============ SCROLL REVEAL: slide in from the side ============
+const revealEls = document.querySelectorAll(".reveal-left, .reveal-right");
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        revealObserver.unobserve(entry.target); // animate once
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
+
+revealEls.forEach((el) => revealObserver.observe(el));
+
 // ============ CONTACT FORM SUBMIT (sends via Formspree) ============
 const contactForm = document.querySelector("#contactForm");
 
@@ -123,4 +140,4 @@ if (contactForm) {
       submitBtn.disabled = false;
     }
   });
-      }
+}
