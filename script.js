@@ -134,37 +134,29 @@ try {
   console.error("Scroll reveal setup failed:", err);
 }
 
-// ============ PROJECT DESCRIPTIONS: auto "Read more" toggle ============
+// ============ PROJECT DESCRIPTIONS: bullet-point "Read more" toggle ============
 try {
-  document.querySelectorAll(".project p").forEach((desc) => {
-    // Measure the description's real height using a hidden clone so we
-    // never have to mutate the live element's layout to check it.
-    const clone = desc.cloneNode(true);
-    clone.style.position = "absolute";
-    clone.style.visibility = "hidden";
-    clone.style.pointerEvents = "none";
-    clone.style.webkitLineClamp = "unset";
-    clone.style.overflow = "visible";
-    clone.style.width = desc.clientWidth + "px";
-    document.body.appendChild(clone);
-    const fullHeight = clone.scrollHeight;
-    document.body.removeChild(clone);
+  const VISIBLE_ITEMS = 3;
 
-    const lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 20;
-    const clampedHeight = lineHeight * 3; // matches the 3-line clamp in CSS
+  document.querySelectorAll(".project .desc-list").forEach((list) => {
+    const items = Array.from(list.querySelectorAll("li"));
+    const btn = list.parentElement.querySelector(".read-more-btn");
 
-    if (fullHeight > clampedHeight + 2) {
-      const btn = document.createElement("button");
-      btn.textContent = "Read more";
-      btn.className = "read-more-btn";
-      btn.type = "button";
+    if (items.length <= VISIBLE_ITEMS) {
+      // Nothing to hide, so no need for a toggle button.
+      if (btn) btn.style.display = "none";
+      return;
+    }
 
+    // Hide everything past the first 3 bullet points by default.
+    items.slice(VISIBLE_ITEMS).forEach((li) => li.classList.add("hidden-item"));
+
+    if (btn) {
       btn.addEventListener("click", () => {
-        const expanded = desc.classList.toggle("expanded");
-        btn.textContent = expanded ? "Read less" : "Read more";
+        const isHidden = items[VISIBLE_ITEMS].classList.contains("hidden-item");
+        items.slice(VISIBLE_ITEMS).forEach((li) => li.classList.toggle("hidden-item", !isHidden));
+        btn.textContent = isHidden ? "Read less" : "Read more";
       });
-
-      desc.insertAdjacentElement("afterend", btn);
     }
   });
 } catch (err) {
