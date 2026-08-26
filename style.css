@@ -279,12 +279,8 @@ nav a:hover {
   height: 160px;
   border-radius: 8px;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, #262626, #1a1a1a);
-  border: 1px solid #2e2e2e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
+  border: 1px solid #2e2e2e;
 }
 
 .project-thumb img {
@@ -292,11 +288,6 @@ nav a:hover {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.project-thumb i {
-  font-size: 48px;
-  color: #f2b705;
 }
 
 .project h3 {
@@ -490,22 +481,24 @@ header.scrolled {
 /* ================= SCROLL REVEAL ANIMATIONS ================= */
 .reveal-left,
 .reveal-right {
-  opacity: 0;
   transition: transform 0.7s ease, opacity 0.7s ease;
 }
 
-.reveal-left {
+/* Hidden state is only applied by JS (reveal-init class) so content
+   always shows if JavaScript fails to load */
+.reveal-init.reveal-left {
+  opacity: 0;
   transform: translateX(-80px);
 }
 
-.reveal-right {
+.reveal-init.reveal-right {
+  opacity: 0;
   transform: translateX(80px);
 }
 
-.reveal-left.active,
-.reveal-right.active {
-  opacity: 1;
-  transform: translateX(0);
+.reveal-init.active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
 }
 
 /* ================= RESPONSIVE ================= */
