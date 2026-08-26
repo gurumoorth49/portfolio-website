@@ -31,7 +31,7 @@ try {
 
 // ============ PROJECT "Viwe on GitHub" BUTTONS ============
 try {
-  document.querySelectorAll(".project button").forEach((btn) => {
+  document.querySelectorAll(".project button[data-link]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const link = btn.getAttribute("data-link") || "https://github.com/gurumoorth49";
       window.open(link, "_blank");
